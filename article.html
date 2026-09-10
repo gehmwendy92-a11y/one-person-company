@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>文章详情 · 一人公司</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ========== 导航 ========== -->
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a href="index.html" class="nav-logo">
+        <span class="nav-logo-mark">1</span>
+        <span>一人公司</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">首页</a></li>
+        <li><a href="services.html">产品服务</a></li>
+        <li><a href="about.html">关于我</a></li>
+        <li><a href="articles.html">我的文章</a></li>
+        <li><a href="booking.html" class="nav-cta">预约咨询</a></li>
+      </ul>
+      <button class="nav-toggle" aria-label="切换菜单">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ========== 文章详情 ========== -->
+  <main class="container">
+    <a href="articles.html" class="back-link">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <line x1="19" y1="12" x2="5" y2="12"/>
+        <polyline points="12 19 5 12 12 5"/>
+      </svg>
+      返回文章列表
+    </a>
+
+    <article class="article-detail">
+      <div class="article-header">
+        <div class="meta">
+          <span id="meta-date">—</span>
+          <span>·</span>
+          <span id="meta-reading">阅读中…</span>
+        </div>
+        <h1 id="article-title">加载中…</h1>
+        <p class="subtitle" id="article-subtitle"></p>
+      </div>
+
+      <div id="markdown-container" class="markdown-body">
+        <p style="text-align:center; padding: 60px 0; color: var(--text-muted);">
+          正在加载文章内容…
+        </p>
+      </div>
+
+      <!-- 文末 CTA -->
+      <div style="margin-top: var(--space-8); padding: var(--space-6); background: var(--brand-soft); border-radius: var(--radius-md); text-align: center;">
+        <h3 style="margin-bottom: var(--space-3);">读完有想法？想找人聊聊？</h3>
+        <p style="color: var(--text-body); margin-bottom: var(--space-4);">
+          欢迎预约一次 45 分钟体验对话，
+          把文章里触动的部分，变成你的下一步。
+        </p>
+        <a href="booking.html" class="btn btn-primary">预约一次体验对话</a>
+      </div>
+    </article>
+  </main>
+
+  <!-- ========== 页脚 ========== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="nav-logo" style="color: white; margin-bottom: var(--space-3);">
+            <span class="nav-logo-mark">1</span>
+            <span>一人公司</span>
+          </div>
+          <p>独立教练 · 内容创作者 · 终身学习者</p>
+        </div>
+        <div>
+          <h4>导航</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">首页</a></li>
+            <li><a href="services.html">产品服务</a></li>
+            <li><a href="about.html">关于我</a></li>
+            <li><a href="articles.html">我的文章</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>服务</h4>
+          <ul class="footer-links">
+            <li><a href="services.html#coach">一对一教练</a></li>
+            <li><a href="services.html#workshop">视觉工作坊</a></li>
+            <li><a href="services.html#content">内容订阅</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>联系</h4>
+          <ul class="footer-links">
+            <li><a href="booking.html">预约对话</a></li>
+            <li><a href="#">微信公众号</a></li>
+            <li><a href="#">小红书</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        © 2026 一人公司 · Made with ❤️ by Monna · All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    // 解析 URL 参数加载 Markdown
+    (function() {
+      const params = new URLSearchParams(location.search);
+      const file = params.get('file');
+
+      if (!file) {
+        document.getElementById('markdown-container').innerHTML =
+          '<p style="text-align:center;color:#e53e3e;">未指定文章路径。</p>';
+        return;
+      }
+
+      // 简单安全检查（只允许 articles/ 下的 .md）
+      if (!/^articles\/[\w\-]+\.md$/.test(file)) {
+        document.getElementById('markdown-container').innerHTML =
+          '<p style="text-align:center;color:#e53e3e;">非法文件路径。</p>';
+        return;
+      }
+
+      WB.loadMarkdown(file, 'markdown-container').then(() => {
+        // 渲染后尝试读取 frontmatter / 元数据（这里简单估算字数）
+        const text = document.getElementById('markdown-container').innerText;
+        const minutes = Math.max(1, Math.round(text.length / 400));
+        document.getElementById('meta-reading').textContent = `${minutes} 分钟`;
+      });
+
+      // 文件名 → 显示日期（前端无 frontmatter 时粗略映射）
+      const dateMap = {
+        'post-1': '2026-08-15',
+        'post-2': '2026-08-02',
+        'post-3': '2026-07-20',
+        'post-4': '2026-07-05',
+        'post-5': '2026-06-18',
+        'post-6': '2026-06-01'
+      };
+      const baseName = (file.match(/post-\d+/) || ['post-x'])[0];
+      if (dateMap[baseName]) {
+        document.getElementById('meta-date').textContent = dateMap[baseName];
+      }
+    })();
+  </script>
+</body>
+</html>

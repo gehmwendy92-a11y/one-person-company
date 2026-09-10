@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>我的文章 · 一人公司</title>
+  <meta name="description" content="我把自己当实验样本写下来的文字。一周一更，关于转型、教练、一人公司。" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ========== 导航 ========== -->
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a href="index.html" class="nav-logo">
+        <span class="nav-logo-mark">1</span>
+        <span>一人公司</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">首页</a></li>
+        <li><a href="services.html">产品服务</a></li>
+        <li><a href="about.html">关于我</a></li>
+        <li><a href="articles.html">我的文章</a></li>
+        <li><a href="booking.html" class="nav-cta">预约咨询</a></li>
+      </ul>
+      <button class="nav-toggle" aria-label="切换菜单">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ========== 头部 ========== -->
+  <header class="hero" style="padding: var(--space-8) 0 var(--space-7);">
+    <div class="container text-center fade-in">
+      <span class="hero-tag"><span class="hero-tag-dot"></span>Writing</span>
+      <h1 class="hero-title">
+        我把自己当<span class="accent">实验样本</span>写下来的文字
+      </h1>
+      <p class="hero-subtitle" style="margin: 0 auto;">
+        不追热点，不写成功学。每一篇都是"这周我搞砸了什么 / 想通了什么 / 接下来要试什么"。
+      </p>
+    </div>
+  </header>
+
+  <!-- ========== 筛选条 ========== -->
+  <section style="padding: var(--space-6) 0 0;">
+    <div class="container">
+      <div class="filter-bar fade-in">
+        <button class="filter-btn active" data-filter="all">全部</button>
+        <button class="filter-btn" data-filter="转型">转型</button>
+        <button class="filter-btn" data-filter="教练">教练</button>
+        <button class="filter-btn" data-filter="一人公司">一人公司</button>
+        <button class="filter-btn" data-filter="思考">思考</button>
+        <button class="filter-btn" data-filter="工具">工具</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 文章列表 ========== -->
+  <section class="section-tight">
+    <div class="container">
+      <div class="articles-grid">
+
+        <a href="article.html?file=articles/post-1.md" data-tag="转型" class="article-card fade-in">
+          <div class="article-cover" style="background: linear-gradient(135deg,#007c40,#00a85a);">
+            <div class="article-cover-text">从大厂到<br/>一个人</div>
+          </div>
+          <div class="article-body">
+            <div class="article-meta">
+              <span class="tag">转型</span>
+              <span>2026-08-15</span>
+              <span>· 8 分钟</span>
+            </div>
+            <h3>离开 6 年的大厂，我用一年时间把自己重新拼回来</h3>
+            <p class="excerpt">不是励志故事，是工具书。我把转型路上所有"看上去很好但其实不好"的瞬间，都如实记下来……</p>
+            <span class="read-more">阅读全文 →</span>
+          </div>
+        </a>
+
+        <a href="article.html?file=articles/post-2.md" data-tag="教练" class="article-card fade-in">
+          <div class="article-cover" style="background: linear-gradient(135deg,#005a2d,#007c40);">
+            <div class="article-cover-text">教练<br/>是什么</div>
+          </div>
+          <div class="article-body">
+            <div class="article-meta">
+              <span class="tag">教练</span>
+              <span>2026-08-02</span>
+              <span>· 6 分钟</span>
+            </div>
+            <h3>教练不是给你答案，是陪你找到你自己的问题</h3>
+            <p class="excerpt">一年前我也以为教练就是"问几个好问题"。学完之后发现，教练其实是……一种很特别的陪伴方式。</p>
+            <span class="read-more">阅读全文 →</span>
+          </div>
+        </a>
+
+        <a href="article.html?file=articles/post-3.md" data-tag="一人公司" class="article-card fade-in">
+          <div class="article-cover" style="background: linear-gradient(135deg,#00a85a,#005a2d);">
+            <div class="article-cover-text">一人<br/>公司</div>
+          </div>
+          <div class="article-body">
+            <div class="article-meta">
+              <span class="tag">一人公司</span>
+              <span>2026-07-20</span>
+              <span>· 10 分钟</span>
+            </div>
+            <h3>如何用"一人公司"的视角，把你的副业做成产品</h3>
+            <p class="excerpt">一人公司不是"自己一个人干活"，它是一种产品思维——你是 CEO，也是产品经理，也是主程。</p>
+            <span class="read-more">阅读全文 →</span>
+          </div>
+        </a>
+
+        <a href="article.html?file=articles/post-4.md" data-tag="思考" class="article-card fade-in">
+          <div class="article-cover" style="background: linear-gradient(135deg,#007c40,#003d22);">
+            <div class="article-cover-text">不是<br/>励志</div>
+          </div>
+          <div class="article-body">
+            <div class="article-meta">
+              <span class="tag">思考</span>
+              <span>2026-07-05</span>
+              <span>· 7 分钟</span>
+            </div>
+            <h3>我为什么要"故意"写得不那么成功</h3>
+            <p class="excerpt">公众号里充斥着"我 30 天赚到 100 万"的故事。我不想写这种。
+              因为这不是真的过程。</p>
+            <span class="read-more">阅读全文 →</span>
+          </div>
+        </a>
+
+        <a href="article.html?file=articles/post-5.md" data-tag="工具" class="article-card fade-in">
+          <div class="article-cover" style="background: linear-gradient(135deg,#00a85a,#007c40);">
+            <div class="article-cover-text">提问<br/>清单</div>
+          </div>
+          <div class="article-body">
+            <div class="article-meta">
+              <span class="tag">工具</span>
+              <span>2026-06-18</span>
+              <span>· 5 分钟</span>
+            </div>
+            <h3>当你不知道下一步时，问自己这 7 个问题</h3>
+            <p class="excerpt">每次卡住我就问自己这几个问题。
+              90% 的时候，我能在第三个问题上看见答案。</p>
+            <span class="read-more">阅读全文 →</span>
+          </div>
+        </a>
+
+        <a href="article.html?file=articles/post-6.md" data-tag="教练" class="article-card fade-in">
+          <div class="article-cover" style="background: linear-gradient(135deg,#005a2d,#00a85a);">
+            <div class="article-cover-text">视觉<br/>记录</div>
+          </div>
+          <div class="article-body">
+            <div class="article-meta">
+              <span class="tag">教练</span>
+              <span>2026-06-01</span>
+              <span>· 8 分钟</span>
+            </div>
+            <h3>为什么我在教练对话里一定要画图？</h3>
+            <p class="excerpt">画图不是为了好看，是因为"画"这个动作本身，
+              就是一种结构化思考。</p>
+            <span class="read-more">阅读全文 →</span>
+          </div>
+        </a>
+
+      </div>
+
+      <div class="text-center mt-6">
+        <p style="color: var(--text-muted); font-size: 0.9rem;">
+          — 已显示 6 篇 · 更多文章每周更新 —
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 订阅区 ========== -->
+  <section class="cta-section">
+    <div class="container">
+      <h2>每周一更新，不错过</h2>
+      <p>订阅公众号「丰盛人生实验室」，第一时间收到新文章 + 实验性小课通知。</p>
+      <a href="#" class="btn btn-primary btn-lg">关注公众号</a>
+    </div>
+  </section>
+
+  <!-- ========== 页脚 ========== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="nav-logo" style="color: white; margin-bottom: var(--space-3);">
+            <span class="nav-logo-mark">1</span>
+            <span>一人公司</span>
+          </div>
+          <p>独立教练 · 内容创作者 · 终身学习者</p>
+        </div>
+        <div>
+          <h4>导航</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">首页</a></li>
+            <li><a href="services.html">产品服务</a></li>
+            <li><a href="about.html">关于我</a></li>
+            <li><a href="articles.html">我的文章</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>服务</h4>
+          <ul class="footer-links">
+            <li><a href="services.html#coach">一对一教练</a></li>
+            <li><a href="services.html#workshop">视觉工作坊</a></li>
+            <li><a href="services.html#content">内容订阅</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>联系</h4>
+          <ul class="footer-links">
+            <li><a href="booking.html">预约对话</a></li>
+            <li><a href="#">微信公众号</a></li>
+            <li><a href="#">小红书</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        © 2026 一人公司 · Made with ❤️ by Monna · All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

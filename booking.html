@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>预约服务 · 一人公司</title>
+  <meta name="description" content="预约一次教练对话 / 视觉工作坊 / 内容订阅。免费 15 分钟咨询也可。" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ========== 导航 ========== -->
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a href="index.html" class="nav-logo">
+        <span class="nav-logo-mark">1</span>
+        <span>一人公司</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">首页</a></li>
+        <li><a href="services.html">产品服务</a></li>
+        <li><a href="about.html">关于我</a></li>
+        <li><a href="articles.html">我的文章</a></li>
+        <li><a href="booking.html" class="nav-cta">预约咨询</a></li>
+      </ul>
+      <button class="nav-toggle" aria-label="切换菜单">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ========== 头部 ========== -->
+  <header class="hero" style="padding: var(--space-8) 0 var(--space-7);">
+    <div class="container text-center fade-in">
+      <span class="hero-tag"><span class="hero-tag-dot"></span>Booking</span>
+      <h1 class="hero-title">
+        预约一次<br/>
+        <span class="accent">不被评判的对话</span>
+      </h1>
+      <p class="hero-subtitle" style="margin: 0 auto;">
+        不需要准备"漂亮的问题"。你带着当下的卡点来，
+        我陪你把它看清楚。
+      </p>
+    </div>
+  </header>
+
+  <!-- ========== 表单区 ========== -->
+  <section class="section-tight">
+    <div class="container">
+      <div class="booking-grid">
+
+        <!-- 左：表单 -->
+        <div>
+          <form id="booking-form" class="booking-form fade-in">
+
+            <h3 style="margin-bottom: var(--space-5);">填写预约信息</h3>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>姓名 <span class="required">*</span></label>
+                <input type="text" name="name" placeholder="怎么称呼你" required />
+              </div>
+              <div class="form-group">
+                <label>微信/邮箱 <span class="required">*</span></label>
+                <input type="text" name="contact" placeholder="方便联系到你" required />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>选择服务 <span class="required">*</span></label>
+              <select name="service" required>
+                <option value="">-- 请选择 --</option>
+                <option value="coach">一对一教练对话（45 分钟 · ¥299 体验价）</option>
+                <option value="workshop">视觉共修工作坊（3 小时 · ¥899）</option>
+                <option value="content">内容订阅（公众号免费 / 深度社群 ¥299/年）</option>
+                <option value="free">15 分钟免费咨询（先聊聊看）</option>
+              </select>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>期望时间 <span class="required">*</span></label>
+                <select name="time" required>
+                  <option value="">-- 请选择 --</option>
+                  <option>工作日上午</option>
+                  <option>工作日下午</option>
+                  <option>工作日晚上</option>
+                  <option>周末上午</option>
+                  <option>周末下午</option>
+                  <option>不挑时间</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>您的城市</label>
+                <input type="text" name="city" placeholder="例如：上海" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>想聊些什么？</label>
+              <textarea name="topic" placeholder="不用写得很完整，几句话就行。比如：考虑要不要转型 / 副业做了半年没起色 / 想做一人公司但不知道从哪开始 ..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label>如何知道我的？</label>
+              <select name="source">
+                <option value="">-- 可选 --</option>
+                <option>微信公众号</option>
+                <option>小红书</option>
+                <option>朋友推荐</option>
+                <option>搜索引擎</option>
+                <option>其他</option>
+              </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">
+              提交预约
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <line x1="5" y1="12" x2="19" y2="12"/>
+                <polyline points="12 5 19 12 12 19"/>
+              </svg>
+            </button>
+
+            <div class="form-success">
+              <strong style="font-size: 1.1rem;">✓ 已收到！</strong>
+              <p style="margin: var(--space-3) 0 0;">
+                我会在 24 小时内联系你确认具体时间。
+                期待这次对话 ✨
+              </p>
+            </div>
+
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: var(--space-4); text-align: center;">
+              提交即表示你同意我们联系你确认预约 · 你的信息我们不会用于其他用途
+            </p>
+          </form>
+        </div>
+
+        <!-- 右：预约须知 -->
+        <div class="booking-side fade-in">
+
+          <h3>预约前，你可能想知道</h3>
+
+          <div class="benefit">
+            <div class="benefit-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12 6 12 12 16 14"/>
+              </svg>
+            </div>
+            <div class="benefit-text">
+              <h4>24 小时内回复</h4>
+              <p>每个工作日我都会看预约。周末提交的会在周一统一回复。</p>
+            </div>
+          </div>
+
+          <div class="benefit">
+            <div class="benefit-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                <path d="M2 17l10 5 10-5"/>
+                <path d="M2 12l10 5 10-5"/>
+              </svg>
+            </div>
+            <div class="benefit-text">
+              <h4>三种服务可选</h4>
+              <p>不确定选哪个？预约"15 分钟免费咨询"，我帮你判断哪种更适合。</p>
+            </div>
+          </div>
+
+          <div class="benefit">
+            <div class="benefit-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22 4 12 14.01 9 11.01"/>
+              </svg>
+            </div>
+            <div class="benefit-text">
+              <h4>无理由可改期</h4>
+              <p>临时有事？提前 24 小时跟我说就行，免费改期一次。</p>
+            </div>
+          </div>
+
+          <div class="benefit">
+            <div class="benefit-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <rect x="3" y="11" width="18" height="11" rx="2"/>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              </svg>
+            </div>
+            <div class="benefit-text">
+              <h4>隐私保护</h4>
+              <p>你的信息只用于预约沟通。对话内容我不会用于公众号写作，除非征得你同意。</p>
+            </div>
+          </div>
+
+          <div style="margin-top: var(--space-6); padding: var(--space-5); background: var(--brand-soft); border-radius: var(--radius-md); border-left: 3px solid var(--brand);">
+            <p style="font-size: 0.9rem; color: var(--brand-deep); margin: 0; font-style: italic;">
+              "我自己的真实经历是，
+              第一次约教练对话之前，我写了 3 段、删了 4 段才发出去。
+              所以——你不用想太多。"<br/>
+              <span style="display: block; margin-top: 8px; font-style: normal; font-size: 0.85rem; color: var(--brand);">
+                — Monna
+              </span>
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 常见问题 ========== -->
+  <section class="section" style="background: var(--bg-soft);">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="section-eyebrow">FAQ</span>
+        <h2 class="section-title">常见问题</h2>
+      </div>
+
+      <div class="services-grid">
+        <div class="service-card fade-in">
+          <h3 style="font-size: 1.05rem;">Q：对话前需要准备什么？</h3>
+          <p>A：什么都不用准备。你只要当下有空、能说话就行。我会引导。</p>
+        </div>
+        <div class="service-card fade-in">
+          <h3 style="font-size: 1.05rem;">Q：一对一对话一定要解决具体问题吗？</h3>
+          <p>A：不一定。很多客户来的时候就是"我不知道我想聊什么"，这本身就是一个命题。</p>
+        </div>
+        <div class="service-card fade-in">
+          <h3 style="font-size: 1.05rem;">Q：体验对话和正式对话有什么不同？</h3>
+          <p>A：体验对话是 45 分钟、¥299，目的是让你感受"被问到点上"的感觉。如果你觉得合适，再决定要不要继续。</p>
+        </div>
+        <div class="service-card fade-in">
+          <h3 style="font-size: 1.05rem;">Q：可以线下吗？</h3>
+          <p>A：上海/苏州可线下。其他城市线上（视频）。工作坊是线下优先。</p>
+        </div>
+        <div class="service-card fade-in">
+          <h3 style="font-size: 1.05rem;">Q：你是什么风格的教练？</h3>
+          <p>A：偏 ICF 体系，强有力提问型 + 视觉化引导。我不会给建议，但会帮你问出你自己的答案。</p>
+        </div>
+        <div class="service-card fade-in">
+          <h3 style="font-size: 1.05rem;">Q：对话内容会被公开吗？</h3>
+          <p>A：不会。除非你明确同意我用匿名方式分享某段对话，否则不会出现在任何公开内容里。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 页脚 ========== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="nav-logo" style="color: white; margin-bottom: var(--space-3);">
+            <span class="nav-logo-mark">1</span>
+            <span>一人公司</span>
+          </div>
+          <p>独立教练 · 内容创作者 · 终身学习者</p>
+        </div>
+        <div>
+          <h4>导航</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">首页</a></li>
+            <li><a href="services.html">产品服务</a></li>
+            <li><a href="about.html">关于我</a></li>
+            <li><a href="articles.html">我的文章</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>服务</h4>
+          <ul class="footer-links">
+            <li><a href="services.html#coach">一对一教练</a></li>
+            <li><a href="services.html#workshop">视觉工作坊</a></li>
+            <li><a href="services.html#content">内容订阅</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>联系</h4>
+          <ul class="footer-links">
+            <li><a href="booking.html">预约对话</a></li>
+            <li><a href="#">微信公众号</a></li>
+            <li><a href="#">小红书</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        © 2026 一人公司 · Made with ❤️ by Monna · All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
