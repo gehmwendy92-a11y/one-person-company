@@ -33,6 +33,20 @@
     if (val == null || val === '') return;
     $$(sel).forEach(el => { el.innerHTML = val; });
   }
+  function setSrc(sel, val) {
+    if (val == null || val === '') return;
+    $$(sel).forEach(el => { if (el.tagName === 'IMG') el.src = val; });
+  }
+
+  /* ---------- 全局品牌（所有页面共用） ---------- */
+  function renderBrand(d) {
+    const p = d.profile || {};
+    setText('[data-wb="site-name"]', p.site_name);
+    setSrc('[data-wb="logo-img"]', p.logo_url);
+    $$('[data-wb="logo-img"]').forEach(img => {
+      if (p.site_name) img.alt = p.site_name;
+    });
+  }
 
   /* ---------- 图标 ---------- */
   const SERVICE_ICONS = {
@@ -91,10 +105,17 @@
       ? String(a.cover_text).replace(/\n/g, '<br/>')
       : esc(String(a.title || '').slice(0, 6));
     const mins = Math.max(1, Math.round(String(a.content || '').length / 400));
+    const hasCoverImg = a.cover_image_url && String(a.cover_image_url).trim();
+    const coverStyle = hasCoverImg
+      ? 'background-image: url(' + esc(hasCoverImg) + '); background-color: #000;'
+      : 'background: ' + grad(i) + ';';
+    const coverInner = hasCoverImg
+      ? '<div class="article-cover-overlay"></div><div class="article-cover-text">' + cover + '</div>'
+      : '<div class="article-cover-text">' + cover + '</div>';
     return '' +
       '<a href="article.html?slug=' + encodeURIComponent(a.slug || '') + '" data-tag="' + esc(tags[0] || '') + '" class="article-card fade-in visible">' +
-        '<div class="article-cover" style="background: ' + grad(i) + ';">' +
-          '<div class="article-cover-text">' + cover + '</div>' +
+        '<div class="article-cover' + (hasCoverImg ? ' has-image' : '') + '" style="' + coverStyle + '">' +
+          coverInner +
         '</div>' +
         '<div class="article-body">' +
           '<div class="article-meta">' +
@@ -124,6 +145,18 @@
     setText('[data-wb="cta-secondary"]', p.cta_secondary);
     setText('[data-wb="cta-title"]', p.cta_title);
     setHTML('[data-wb="cta-desc"]', nl2br(p.cta_desc));
+
+    /* 首屏右侧大图 */
+    const heroVisual = $('[data-wb="hero-image"]');
+    if (heroVisual) {
+      if (p.hero_image_url) {
+        heroVisual.innerHTML = '<img src="' + esc(p.hero_image_url) + '" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:var(--radius-lg);display:block;">';
+        heroVisual.classList.add('has-image');
+      } else {
+        heroVisual.innerHTML = '<div class="hero-visual-text"><div class="big">一个人<br/>一家公司</div><div class="small">SOLO · BUILDER · SHARE</div></div>';
+        heroVisual.classList.remove('has-image');
+      }
+    }
 
     /* 数据统计 */
     const stats = arr(p.stats);
@@ -245,6 +278,31 @@
         '</div>'
       ).join('');
     }
+  }
+
+  /* ---------- 联系我模块（关于我 / 预约页共用） ---------- */
+  function renderContact(d) {
+    const p = d.profile || {};
+    const wechat = String(p.wechat || '').trim();
+    const email  = String(p.contact_email || '').trim();
+    if (!wechat && !email) return;   // 后台没填 → 模块保持隐藏
+
+    $$('[data-wb="contact-box"]').forEach(box => {
+      const wItem = box.querySelector('[data-wb="contact-wechat-item"]');
+      const eItem = box.querySelector('[data-wb="contact-email-item"]');
+
+      if (wItem) {
+        wItem.style.display = wechat ? '' : 'none';
+        const el = wItem.querySelector('[data-wb="contact-wechat"]');
+        if (el && wechat) el.textContent = wechat;
+      }
+      if (eItem) {
+        eItem.style.display = email ? '' : 'none';
+        const el = eItem.querySelector('[data-wb="contact-email"]');
+        if (el && email) { el.textContent = email; el.href = 'mailto:' + email; }
+      }
+      box.hidden = false;
+    });
   }
 
   /* ---------- 文章列表 ---------- */
@@ -379,15 +437,21 @@
 
     const page = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
 
+    const d = await window.WBStore.loadAll();
+
+    /* 全局品牌：所有页面都要换 logo 和网站名 */
+    if (d.ok) renderBrand(d);
+
+    /* 联系我模块：关于我 / 预约页都有，后台没填则不显示 */
+    if (d.ok) renderContact(d);
+
     /* 文章详情页特殊处理：即使数据层读不到，也要能用 ?file= 直接读 .md 兜底 */
     if (page === 'article.html') {
-      const dd = await window.WBStore.loadAll();
-      try { await renderArticleDetail(dd.ok ? dd : { articles: [] }); }
+      try { await renderArticleDetail(d.ok ? d : { articles: [] }); }
       catch (e) { console.warn('[site] 文章渲染出错：', e); }
       return;
     }
 
-    const d = await window.WBStore.loadAll();
     if (!d.ok) return;   // 读不到 → 保留静态内容
 
     try {

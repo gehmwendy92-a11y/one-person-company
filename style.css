@@ -154,6 +154,15 @@ p { margin-bottom: 1em; }
   font-weight: 800;
 }
 
+.nav-logo img {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  object-fit: cover;
+  display: block;
+  flex-shrink: 0;
+}
+
 .nav-links {
   display: flex;
   gap: var(--space-6);
@@ -404,6 +413,14 @@ p { margin-bottom: 1em; }
   font-size: 1rem;
   opacity: 0.9;
   letter-spacing: 0.05em;
+}
+
+.hero-visual.has-image {
+  background: transparent !important;
+}
+.hero-visual.has-image::before,
+.hero-visual.has-image::after {
+  display: none;
 }
 
 @media (max-width: 768px) {
@@ -687,6 +704,9 @@ p { margin-bottom: 1em; }
 .article-cover {
   aspect-ratio: 16/9;
   background: var(--brand-gradient);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   position: relative;
   display: flex;
   align-items: center;
@@ -705,10 +725,26 @@ p { margin-bottom: 1em; }
   top: -30px; right: -30px;
 }
 
+.article-cover.has-image::before {
+  display: none;
+}
+
 .article-cover-text {
+  position: relative;
   z-index: 1;
   text-align: center;
   padding: 0 var(--space-4);
+}
+
+.article-cover-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.38);
+  z-index: 0;
+}
+
+.article-cover.has-image .article-cover-text {
+  text-shadow: 0 2px 8px rgba(0,0,0,0.35);
 }
 
 .article-body {
@@ -1213,3 +1249,93 @@ p { margin-bottom: 1em; }
 }
 
 .back-link:hover { color: var(--brand); }
+/* ========== 联系我模块（关于我 / 预约页共用） ========== */
+.contact-card {
+  background: #ffffff;
+  border: 1px solid #e8ece8;
+  border-radius: var(--radius-lg);
+  padding: var(--space-7);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+}
+
+.contact-items {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-5);
+  background: var(--brand-soft);
+  border-radius: var(--radius-md);
+}
+
+.contact-icon {
+  flex: 0 0 48px;
+  width: 48px;
+  height: 48px;
+  background: #ffffff;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+}
+
+.contact-text { min-width: 0; }
+
+.contact-label {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 2px;
+}
+
+.contact-value {
+  font-size: 1.05rem;
+  color: var(--text-title);
+  font-weight: 600;
+  word-break: break-all;
+}
+
+.contact-value.contact-link {
+  color: var(--brand);
+  text-decoration: none;
+}
+
+.contact-value.contact-link:hover {
+  text-decoration: underline;
+}
+
+.contact-note {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin: var(--space-4) 0 0;
+  line-height: 1.6;
+}
+
+/* 预约页侧栏里的联系卡（稍微紧凑一点） */
+.booking-side .contact-box { margin-top: var(--space-6); }
+.booking-side .contact-box h4 {
+  font-size: 1rem;
+  margin-bottom: var(--space-4);
+}
+.booking-side .contact-item {
+  padding: var(--space-3) var(--space-4);
+  gap: var(--space-3);
+}
+.booking-side .contact-icon {
+  flex: 0 0 40px;
+  width: 40px;
+  height: 40px;
+  font-size: 1.15rem;
+}
+.booking-side .contact-value { font-size: 0.98rem; }
+
+@media (max-width: 600px) {
+  .contact-card { padding: var(--space-5); }
+  .contact-item { flex-direction: row; }
+}

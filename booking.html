@@ -13,8 +13,8 @@
   <nav class="nav">
     <div class="container nav-inner">
       <a href="index.html" class="nav-logo">
-        <span class="nav-logo-mark">1</span>
-        <span>一人公司</span>
+        <img class="nav-logo-img" data-wb="logo-img" src="logo.jpg" alt=""/>
+        <span data-wb="site-name">一人公司</span>
       </a>
       <ul class="nav-links">
         <li><a href="index.html">首页</a></li>
@@ -197,6 +197,28 @@
             </div>
           </div>
 
+          <!-- 联系我（后台配置微信/邮箱后自动显示） -->
+          <div class="contact-box" data-wb="contact-box" hidden>
+            <h4>也可以直接联系我</h4>
+            <div class="contact-items">
+              <div class="contact-item" data-wb="contact-wechat-item">
+                <div class="contact-icon">💬</div>
+                <div class="contact-text">
+                  <span class="contact-label">微信</span>
+                  <strong class="contact-value" data-wb="contact-wechat"></strong>
+                </div>
+              </div>
+              <div class="contact-item" data-wb="contact-email-item">
+                <div class="contact-icon">✉️</div>
+                <div class="contact-text">
+                  <span class="contact-label">邮箱</span>
+                  <a class="contact-value contact-link" data-wb="contact-email" href="#"></a>
+                </div>
+              </div>
+            </div>
+            <p class="contact-note">不想填表单的话，加微信或发邮件说一句"我想聊聊"就行。</p>
+          </div>
+
           <div style="margin-top: var(--space-6); padding: var(--space-5); background: var(--brand-soft); border-radius: var(--radius-md); border-left: 3px solid var(--brand);">
             <p style="font-size: 0.9rem; color: var(--brand-deep); margin: 0; font-style: italic;">
               "我自己的真实经历是，
@@ -256,8 +278,8 @@
       <div class="footer-grid">
         <div class="footer-brand">
           <div class="nav-logo" style="color: white; margin-bottom: var(--space-3);">
-            <span class="nav-logo-mark">1</span>
-            <span>一人公司</span>
+            <img class="nav-logo-img" data-wb="logo-img" src="logo.jpg" alt="" style="background:white;"/>
+            <span data-wb="site-name">一人公司</span>
           </div>
           <p>独立教练 · 内容创作者 · 终身学习者</p>
         </div>
@@ -288,7 +310,7 @@
         </div>
       </div>
       <div class="footer-bottom">
-        © 2026 一人公司 · Made with ❤️ by Monna · All rights reserved.
+        © 2026 <span data-wb="site-name">一人公司</span> · Made with ❤️ by Monna · All rights reserved.
         <span style="opacity:.5; margin:0 8px;">·</span>
         <a href="admin.html" style="opacity:.75;">管理后台</a>
       </div>

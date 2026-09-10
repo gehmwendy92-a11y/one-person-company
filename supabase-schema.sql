@@ -19,6 +19,9 @@
 create table if not exists profile (
   id            int primary key default 1,
   brand         text default '一人公司',
+  site_name     text default '一人公司',
+  logo_url      text default '',
+  hero_image_url text default '',
   hero_tag      text default '',
   hero_title    text default '',
   hero_subtitle text default '',
@@ -84,6 +87,7 @@ create table if not exists articles (
   summary     text default '',
   tags        jsonb default '[]'::jsonb,
   cover_text  text default '',
+  cover_image_url text default '',
   date        text default '',
   content     text default '',
   published   boolean default true,

@@ -12,6 +12,9 @@ window.WB_SEED = {
 
   /* ---------- 1. 首页档案 ---------- */
   profile: {
+    site_name: '一人公司',
+    logo_url: 'logo.jpg',
+    hero_image_url: '',
     brand: '一人公司',
     hero_tag: '独立教练 · 内容创作者',
     hero_title: '把模糊的想法，变成清晰的下一步',
@@ -130,12 +133,12 @@ window.WB_SEED = {
   /* ---------- 4. 我的文章 ---------- */
   /* 正文会从下面这些 .md 文件里自动读进来 */
   articleFiles: [
-    { file: 'post-1.md', date: '2026-08-15', tags: ['转型'],     cover_text: '从大厂到<br/>一个人', title: '离开 6 年的大厂，我用一年时间把自己重新拼回来', summary: '不是励志故事，是工具书。我把转型路上所有"看上去很好但其实不好"的瞬间，都如实记下来……' },
-    { file: 'post-2.md', date: '2026-08-02', tags: ['教练'],     cover_text: '教练<br/>是什么',     title: '教练不是给你答案，是陪你找到你自己的问题',   summary: '一年前我也以为教练就是"问几个好问题"。学完之后发现，教练其实是……一种很特别的陪伴方式。' },
-    { file: 'post-3.md', date: '2026-07-20', tags: ['一人公司'], cover_text: '一人<br/>公司',       title: '如何用"一人公司"的视角，把你的副业做成产品', summary: '一人公司不是"自己一个人干活"，它是一种产品思维——你是 CEO，也是产品经理，也是主程。' },
-    { file: 'post-4.md', date: '2026-07-05', tags: ['思考'],     cover_text: '不是<br/>励志',       title: '我为什么要"故意"写得不那么成功',             summary: '公众号里充斥着"我 30 天赚到 100 万"的故事。我不想写这种，因为这不是真的过程。' },
-    { file: 'post-5.md', date: '2026-06-18', tags: ['工具'],     cover_text: '提问<br/>清单',       title: '我给客户用的 12 个提问清单',                 summary: '这些问题我用了 50+ 次，每一次都有人被问住。整理出来，你也可以问自己。' },
-    { file: 'post-6.md', date: '2026-06-01', tags: ['教练', '思考'], cover_text: '第一次<br/>对话',  title: '第一次教练对话前，我写了 3 段删了 4 段',     summary: '如果你正在犹豫要不要约一次教练对话，这篇是写给你的。' }
+    { file: 'post-1.md', date: '2026-08-15', tags: ['转型'],     cover_text: '从大厂到<br/>一个人', cover_image_url: '', title: '离开 6 年的大厂，我用一年时间把自己重新拼回来', summary: '不是励志故事，是工具书。我把转型路上所有"看上去很好但其实不好"的瞬间，都如实记下来……' },
+    { file: 'post-2.md', date: '2026-08-02', tags: ['教练'],     cover_text: '教练<br/>是什么',     cover_image_url: '', title: '教练不是给你答案，是陪你找到你自己的问题',   summary: '一年前我也以为教练就是"问几个好问题"。学完之后发现，教练其实是……一种很特别的陪伴方式。' },
+    { file: 'post-3.md', date: '2026-07-20', tags: ['一人公司'], cover_text: '一人<br/>公司',       cover_image_url: '', title: '如何用"一人公司"的视角，把你的副业做成产品', summary: '一人公司不是"自己一个人干活"，它是一种产品思维——你是 CEO，也是产品经理，也是主程。' },
+    { file: 'post-4.md', date: '2026-07-05', tags: ['思考'],     cover_text: '不是<br/>励志',       cover_image_url: '', title: '我为什么要"故意"写得不那么成功',             summary: '公众号里充斥着"我 30 天赚到 100 万"的故事。我不想写这种，因为这不是真的过程。' },
+    { file: 'post-5.md', date: '2026-06-18', tags: ['工具'],     cover_text: '提问<br/>清单',       cover_image_url: '', title: '我给客户用的 12 个提问清单',                 summary: '这些问题我用了 50+ 次，每一次都有人被问住。整理出来，你也可以问自己。' },
+    { file: 'post-6.md', date: '2026-06-01', tags: ['教练', '思考'], cover_text: '第一次<br/>对话', cover_image_url: '', title: '第一次教练对话前，我写了 3 段删了 4 段',     summary: '如果你正在犹豫要不要约一次教练对话，这篇是写给你的。' }
   ]
 
 };

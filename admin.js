@@ -65,6 +65,63 @@
       '<span>' + esc(label) + '</span></label></div>';
   }
 
+  /* 图片上传控件：支持填网址，或选择本地文件转 base64 */
+  function fImage(name, label, value, hint, clearLabel) {
+    const src = value || '';
+    return '<div class="field" data-image-field="' + name + '">' +
+      '<label>' + esc(label) + (hint ? '<span class="hint">' + esc(hint) + '</span>' : '') + '</label>' +
+      '<input type="text" name="' + name + '" value="' + esc(src) + '" placeholder="可填图片网址，或点击下方按钮上传本地图片" />' +
+      '<div style="display:flex;gap:10px;align-items:center;margin-top:8px;flex-wrap:wrap;">' +
+        '<label class="btn btn-ghost btn-sm" style="cursor:pointer;">' +
+          '<input type="file" accept="image/*" data-file-for="' + name + '" style="display:none;" />' +
+          '选择图片' +
+        '</label>' +
+        '<button type="button" class="btn btn-ghost btn-sm" data-clear-image="' + name + '">' + esc(clearLabel || '清空图片') + '</button>' +
+      '</div>' +
+      '<div class="image-preview-wrap" style="margin-top:10px;' + (src ? '' : 'display:none;') + '">' +
+        '<img data-preview-for="' + name + '" src="' + esc(src) + '" alt="预览" style="max-width:220px;max-height:140px;border-radius:8px;border:1px solid var(--border);object-fit:cover;" />' +
+      '</div>' +
+    '</div>';
+  }
+  function bindImageUploads(root) {
+    $$('[data-file-for]', root).forEach(input => {
+      input.addEventListener('change', () => {
+        const name = input.dataset.fileFor;
+        const file = input.files && input.files[0];
+        if (!file) return;
+        if (file.size > 2 * 1024 * 1024) { alert('图片不能超过 2MB'); return; }
+        const reader = new FileReader();
+        reader.onload = () => {
+          const url = reader.result;
+          const textInput = root.querySelector('[name="' + name + '"]');
+          if (textInput) textInput.value = url;
+          updateImagePreview(root, name, url);
+        };
+        reader.readAsDataURL(file);
+      });
+    });
+    $$('[data-clear-image]', root).forEach(btn => {
+      btn.addEventListener('click', () => {
+        const name = btn.dataset.clearImage;
+        const textInput = root.querySelector('[name="' + name + '"]');
+        if (textInput) textInput.value = '';
+        updateImagePreview(root, name, '');
+      });
+    });
+    $$('[name="logo_url"],[name="hero_image_url"],[name="cover_image_url"]', root).forEach(input => {
+      input.addEventListener('input', () => {
+        updateImagePreview(root, input.name, input.value.trim());
+      });
+    });
+  }
+  function updateImagePreview(root, name, url) {
+    const img = root.querySelector('[data-preview-for="' + name + '"]');
+    const wrap = img && img.parentElement;
+    if (!img) return;
+    if (url) { img.src = url; if (wrap) wrap.style.display = ''; }
+    else { img.src = ''; if (wrap) wrap.style.display = 'none'; }
+  }
+
   /* 可增删的条目编辑器
    * fields: [{ key, ph, w }]  w: 'wide' 表示占满一行 */
   function repeatBox(name, items, fields, addLabel) {
@@ -267,9 +324,12 @@
       '<form id="form-profile">' +
 
         '<div class="card">' +
-          '<div class="card-title">首屏区域</div>' +
-          '<p class="card-desc">访客打开网站第一眼看到的内容。</p>' +
-          fText('brand', '网站名称', p.brand) +
+          '<div class="card-title">品牌与首屏</div>' +
+          '<p class="card-desc">全站共用的 Logo、网站标题，以及首页右侧大图。</p>' +
+          fText('site_name', '网站标题（导航/页脚显示）', p.site_name, '例如：一人公司') +
+          fImage('logo_url', 'Logo 图片', p.logo_url, '建议正方形，32×32 以上即可') +
+          fText('brand', '品牌名（后台登录页显示）', p.brand) +
+          fImage('hero_image_url', '首页右侧大图', p.hero_image_url, '留空则显示默认的绿色文字卡片') +
           fText('hero_tag', '顶部小标签', p.hero_tag, '例如：独立教练 · 内容创作者') +
           fText('hero_title', '主标题', p.hero_title, '建议 12-20 字') +
           fArea('hero_subtitle', '副标题 / 自我介绍', p.hero_subtitle, 4, '换行会原样显示') +
@@ -293,9 +353,14 @@
           '<p class="card-desc">首页最下方那个绿色渐变区块。</p>' +
           fText('cta_title', '标题', p.cta_title) +
           fArea('cta_desc', '说明文字', p.cta_desc, 3) +
+        '</div>' +
+
+        '<div class="card">' +
+          '<div class="card-title">联系方式</div>' +
+          '<p class="card-desc">填写后会显示在「关于我」和「预约对话」页面的"联系我"模块（邮箱会变成可点击的邮件链接）。两项都留空则不显示该模块。</p>' +
           '<div class="field-row">' +
-            fText('contact_email', '联系邮箱（选填）', p.contact_email) +
-            fText('wechat', '微信号（选填）', p.wechat) +
+            fText('wechat', '微信号', p.wechat, '例如：monna-coach') +
+            fText('contact_email', '联系邮箱', p.contact_email, '例如：monna@example.com') +
           '</div>' +
         '</div>' +
 
@@ -306,13 +371,18 @@
 
       '</form>';
 
+    bindImageUploads($('#form-profile'));
+
     $('#form-profile').addEventListener('submit', async (e) => {
       e.preventDefault();
       const root = e.target;
       const g = n => { const el = root.querySelector('[name="' + n + '"]'); return el ? el.value : ''; };
 
       const payload = {
+        site_name: g('site_name').trim(),
+        logo_url: g('logo_url').trim(),
         brand: g('brand').trim(),
+        hero_image_url: g('hero_image_url').trim(),
         hero_tag: g('hero_tag').trim(),
         hero_title: g('hero_title').trim(),
         hero_subtitle: g('hero_subtitle'),
@@ -588,7 +658,7 @@
 
   function editArticle(a, all) {
     const isNew = !a;
-    a = a || { title: '', slug: '', summary: '', tags: [], cover_text: '', date: today(), content: '', published: true };
+    a = a || { title: '', slug: '', summary: '', tags: [], cover_text: '', cover_image_url: '', date: today(), content: '', published: true };
 
     const body = '' +
       fText('title', '文章标题', a.title) +
@@ -601,7 +671,17 @@
         fText('tags', '标签', arr(a.tags).join(','), '多个用英文逗号分隔') +
         fText('cover_text', '封面大字', a.cover_text, '例如：从大厂到<br/>一个人') +
       '</div>' +
-      fArea('content', '正文（Markdown）', a.content, 18, '支持 # 标题、**加粗**、- 列表、> 引用、表格、代码块') +
+      fImage('cover_image_url', '封面背景图', a.cover_image_url, '留空则使用默认渐变背景；建议 16:9 比例', '恢复默认') +
+      '<div class="field"><label>正文（Markdown）</label>' +
+      '<div style="display:flex;gap:10px;align-items:center;margin-bottom:8px;flex-wrap:wrap;">' +
+        '<label class="btn btn-ghost btn-sm" style="cursor:pointer;">' +
+          '<input type="file" accept=".md,text/markdown,text/plain" data-md-upload style="display:none;" />' +
+          '📄 上传 Markdown 文件' +
+        '</label>' +
+        '<span class="hint">支持 .md 文件，上传后自动填充正文；若标题为空，会自动提取文件里的 # 一级标题</span>' +
+      '</div>' +
+      fArea('content', '', a.content, 18, '支持 # 标题、**加粗**、- 列表、> 引用、表格、代码块') +
+      '</div>' +
       fCheck('published', '发布（取消勾选则前台不显示）', a.published !== false);
 
     openModal(isNew ? '写新文章' : '编辑文章', body, async (root) => {
@@ -619,6 +699,7 @@
         summary: g('summary').trim(),
         tags: tags,
         cover_text: g('cover_text').trim(),
+        cover_image_url: g('cover_image_url').trim(),
         content: g('content'),
         published: root.querySelector('[name="published"]').checked,
         sort_order: a.sort_order != null ? a.sort_order : (all ? all.length : 99),
@@ -633,6 +714,37 @@
       toast(isNew ? '已新增文章' : '已保存');
       renderPage();
     });
+
+    // 弹窗里的 DOM 已生成，绑定图片上传和 Markdown 上传事件
+    setTimeout(() => {
+      const root = $('#modal-body');
+      if (!root) return;
+      bindImageUploads(root);
+
+      const mdInput = root.querySelector('[data-md-upload]');
+      if (mdInput) {
+        mdInput.addEventListener('change', () => {
+          const file = mdInput.files && mdInput.files[0];
+          if (!file) return;
+          if (file.size > 5 * 1024 * 1024) { alert('Markdown 文件不能超过 5MB'); return; }
+          const reader = new FileReader();
+          reader.onload = () => {
+            let text = String(reader.result || '');
+            // 简单处理：移除 BOM
+            if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
+            const contentArea = root.querySelector('[name="content"]');
+            if (contentArea) contentArea.value = text;
+            // 如果标题为空，尝试从 # 一级标题提取
+            const titleInput = root.querySelector('[name="title"]');
+            if (titleInput && !titleInput.value.trim()) {
+              const m = text.match(/^#\s+(.+)$/m);
+              if (m) titleInput.value = m[1].trim();
+            }
+          };
+          reader.readAsText(file);
+        });
+      }
+    }, 0);
   }
 
   /* ============================================================
@@ -770,15 +882,21 @@
   }
 
   async function boot() {
-    $('#login-brand').textContent = (window.WB_CONFIG.brand || '一人公司') + ' 后台';
-    $('#side-brand').textContent  = window.WB_CONFIG.brand || '一人公司';
-
+    let displayName = window.WB_CONFIG.brand || '一人公司';
+    let logoUrl = 'logo.jpg';
     try {
       await Store.init();
+      const profile = await Store.singleton('profile').catch(() => ({}));
+      if (profile.site_name) displayName = profile.site_name;
+      if (profile.logo_url) logoUrl = profile.logo_url;
     } catch (e) {
       $('#login-error').textContent = '初始化失败：' + e.message;
       $('#login-error').classList.add('show');
     }
+
+    $('#login-brand').textContent = displayName + ' 后台';
+    $('#side-brand').textContent  = displayName;
+    $$('[data-wb="logo-img"]').forEach(img => { img.src = logoUrl; img.alt = displayName; });
 
     renderLoginMode();
 

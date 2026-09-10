@@ -92,6 +92,7 @@
         summary: f.summary,
         tags: f.tags || [],
         cover_text: f.cover_text || '',
+        cover_image_url: f.cover_image_url || '',
         date: f.date || '',
         content: content,
         published: true,
