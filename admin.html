@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>管理后台 · 一人公司</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+
+  <!-- ================= 登录页 ================= -->
+  <div class="login-wrap" id="login-view">
+    <div class="login-card">
+      <div class="login-logo">
+        <span class="login-mark">1</span>
+        <span id="login-brand">一人公司</span>
+      </div>
+      <p class="login-sub">管理后台 · 请先登录</p>
+
+      <div class="login-error" id="login-error"></div>
+
+      <form id="login-form" autocomplete="on">
+        <div class="field">
+          <label for="login-email">邮箱</label>
+          <input type="text" id="login-email" placeholder="你的登录邮箱" autocomplete="username" required />
+        </div>
+        <div class="field">
+          <label for="login-password">密码</label>
+          <input type="password" id="login-password" placeholder="你的密码" autocomplete="current-password" required />
+        </div>
+        <button type="submit" class="btn btn-primary btn-block" id="login-btn">登录</button>
+      </form>
+
+      <div class="login-mode" id="login-mode"></div>
+    </div>
+  </div>
+
+  <!-- ================= 后台主体 ================= -->
+  <div class="app" id="app-view">
+
+    <!-- 侧栏 -->
+    <aside class="sidebar">
+      <div class="sidebar-head">
+        <span class="login-mark" style="width:30px;height:30px;font-size:15px;">1</span>
+        <span id="side-brand">一人公司</span>
+      </div>
+      <nav class="sidebar-nav" id="side-nav"></nav>
+      <div class="sidebar-foot">
+        <div class="who" id="side-user">—</div>
+        <div class="links">
+          <a href="index.html" target="_blank">看网站 ↗</a>
+          <a href="#" id="btn-logout">退出</a>
+        </div>
+      </div>
+    </aside>
+
+    <!-- 主区 -->
+    <main class="main">
+      <div class="topbar">
+        <div>
+          <h1 id="page-title">加载中…</h1>
+          <div class="desc" id="page-desc"></div>
+        </div>
+        <div class="spacer"></div>
+        <div id="page-actions"></div>
+      </div>
+      <div class="content" id="content">
+        <div class="loading"><div class="spinner"></div>正在加载…</div>
+      </div>
+    </main>
+  </div>
+
+  <!-- ================= 弹窗 ================= -->
+  <div class="modal-mask" id="modal-mask">
+    <div class="modal">
+      <div class="modal-head">
+        <h2 id="modal-title">编辑</h2>
+        <div class="spacer"></div>
+        <button class="close" id="modal-close" aria-label="关闭">&times;</button>
+      </div>
+      <div class="modal-body" id="modal-body"></div>
+      <div class="modal-foot" id="modal-foot"></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <!-- ================= 脚本 ================= -->
+  <script src="config.js"></script>
+  <script src="seed.js"></script>
+  <script src="store.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>

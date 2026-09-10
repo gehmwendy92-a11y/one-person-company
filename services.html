@@ -41,12 +41,15 @@
         三种方式陪你<br/>
         <span class="accent">从"想不清楚"</span>到"开始做"
       </h1>
-      <p class="hero-subtitle" style="margin: 0 auto;">
+      <p class="hero-subtitle" style="margin: 0 auto;" data-wb="services-hero-subtitle">
         每种服务我都亲自做，不外包、不脚本化。
         你来，我会把你当作唯一的客户来对待。
       </p>
     </div>
   </header>
+
+  <!-- ========== 服务列表（内容由后台管理，下方为默认内容） ========== -->
+  <div data-wb="services-detail">
 
   <!-- ========== 服务 1：一对一教练 ========== -->
   <section class="section" id="coach" style="padding-top: var(--space-6);">
@@ -177,6 +180,8 @@
     </div>
   </section>
 
+  </div><!-- /services-detail -->
+
   <!-- ========== 怎么工作的 ========== -->
   <section class="section" style="background: var(--brand-gradient-v); color: white;">
     <div class="container">
@@ -285,10 +290,16 @@
       </div>
       <div class="footer-bottom">
         © 2026 一人公司 · Made with ❤️ by Monna · All rights reserved.
+        <span style="opacity:.5; margin:0 8px;">·</span>
+        <a href="admin.html" style="opacity:.75;">管理后台</a>
       </div>
     </div>
   </footer>
 
   <script src="main.js"></script>
+  <script src="config.js"></script>
+  <script src="seed.js"></script>
+  <script src="store.js"></script>
+  <script src="site.js"></script>
 </body>
 </html>

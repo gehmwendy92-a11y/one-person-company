@@ -2,7 +2,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   initNavToggle();
   initFadeIn();
-  initBookingForm();
   initArticleFilters();
   highlightCurrentNav();
 });
@@ -56,21 +55,8 @@ function initFadeIn() {
 }
 
 // ====== 预约表单 ======
-function initBookingForm() {
-  const form = document.querySelector('#booking-form');
-  if (!form) return;
-
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const success = document.querySelector('.form-success');
-    if (success) {
-      success.classList.add('show');
-      success.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-    form.reset();
-    setTimeout(() => success?.classList.remove('show'), 8000);
-  });
-}
+// 已移到 site.js 处理（提交时会写入后台的「预约咨询线索」）
+// 这里不再绑定，避免重复触发导致表单被提前清空。
 
 // ====== 文章筛选 ======
 function initArticleFilters() {

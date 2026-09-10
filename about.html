@@ -37,10 +37,10 @@
   <header class="hero" style="padding: var(--space-8) 0;">
     <div class="container fade-in">
       <span class="hero-tag"><span class="hero-tag-dot"></span>About Me</span>
-      <h1 class="hero-title" style="margin-bottom: var(--space-4);">
+      <h1 class="hero-title" style="margin-bottom: var(--space-4);" data-wb="about-hero-title">
         你好，我是 <span class="accent">Monna</span>
       </h1>
-      <p class="hero-subtitle" style="max-width: 640px;">
+      <p class="hero-subtitle" style="max-width: 640px;" data-wb="about-hero-subtitle">
         一个离开 6 年大厂产品经理岗位、
         正在做"第二种人生版本"实验的人。
       </p>
@@ -55,15 +55,16 @@
         <!-- 左：照片区 -->
         <div class="about-photo fade-in">
           <div class="about-photo-inner">
-            <h3>Monna · 霖子</h3>
-            <p>独立教练 / 内容创作者<br/>坐标：苏州</p>
+            <h3 data-wb="about-photo-title">Monna · 霖子</h3>
+            <p data-wb="about-photo-sub">独立教练 / 内容创作者<br/>坐标：苏州</p>
           </div>
         </div>
 
         <!-- 右：故事 -->
         <div class="fade-in">
           <span class="section-eyebrow">My Story</span>
-          <h2 style="margin-bottom: var(--space-4);">从大厂到一个人</h2>
+          <h2 style="margin-bottom: var(--space-4);" data-wb="about-story-title">从大厂到一个人</h2>
+          <div data-wb="about-story">
           <p style="font-size: 1.05rem;">
             我在智慧城市、智慧安全、智慧建造三个赛道做了 6 年产品经理，
             从需求到上线，从 0 到 1，每一个流程我都熟得能闭眼画出来。
@@ -82,9 +83,10 @@
             用一年时间，做"第二种人生版本"的实验。
             这个网站、这门生意、这些对话，都是实验的一部分。
           </p>
+          </div>
 
           <h3 style="margin-top: var(--space-7); margin-bottom: var(--space-4);">这一路的关键节点</h3>
-          <ul class="timeline">
+          <ul class="timeline" data-wb="about-timeline">
             <li>
               <span class="year">2018 — 2024</span>
               <h4>B/G 端产品经理 · 智慧城市 / 安全 / 建造赛道</h4>
@@ -127,7 +129,7 @@
         </p>
       </div>
 
-      <div class="values-grid">
+      <div class="values-grid" data-wb="about-values">
         <div class="value-card fade-in">
           <div class="value-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -214,7 +216,7 @@
         </p>
       </div>
 
-      <div class="services-grid">
+      <div class="services-grid" data-wb="about-tools">
         <div class="service-card fade-in">
           <div class="service-icon">📐</div>
           <h3>结构化思维</h3>
@@ -312,10 +314,16 @@
       </div>
       <div class="footer-bottom">
         © 2026 一人公司 · Made with ❤️ by Monna · All rights reserved.
+        <span style="opacity:.5; margin:0 8px;">·</span>
+        <a href="admin.html" style="opacity:.75;">管理后台</a>
       </div>
     </div>
   </footer>
 
   <script src="main.js"></script>
+  <script src="config.js"></script>
+  <script src="seed.js"></script>
+  <script src="store.js"></script>
+  <script src="site.js"></script>
 </body>
 </html>

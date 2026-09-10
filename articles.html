@@ -49,7 +49,7 @@
   <!-- ========== 筛选条 ========== -->
   <section style="padding: var(--space-6) 0 0;">
     <div class="container">
-      <div class="filter-bar fade-in">
+      <div class="filter-bar fade-in" data-wb="filter-bar">
         <button class="filter-btn active" data-filter="all">全部</button>
         <button class="filter-btn" data-filter="转型">转型</button>
         <button class="filter-btn" data-filter="教练">教练</button>
@@ -63,7 +63,7 @@
   <!-- ========== 文章列表 ========== -->
   <section class="section-tight">
     <div class="container">
-      <div class="articles-grid">
+      <div class="articles-grid" data-wb="articles-list">
 
         <a href="article.html?file=post-1.md" data-tag="转型" class="article-card fade-in">
           <div class="article-cover" style="background: linear-gradient(135deg,#007c40,#00a85a);">
@@ -222,10 +222,16 @@
       </div>
       <div class="footer-bottom">
         © 2026 一人公司 · Made with ❤️ by Monna · All rights reserved.
+        <span style="opacity:.5; margin:0 8px;">·</span>
+        <a href="admin.html" style="opacity:.75;">管理后台</a>
       </div>
     </div>
   </footer>
 
   <script src="main.js"></script>
+  <script src="config.js"></script>
+  <script src="seed.js"></script>
+  <script src="store.js"></script>
+  <script src="site.js"></script>
 </body>
 </html>

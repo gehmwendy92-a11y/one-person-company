@@ -37,25 +37,25 @@
   <header class="hero">
     <div class="container hero-inner">
       <div class="hero-text fade-in">
-        <span class="hero-tag"><span class="hero-tag-dot"></span>独立教练 · 内容创作者</span>
-        <h1 class="hero-title">
+        <span class="hero-tag"><span class="hero-tag-dot"></span><span data-wb="hero-tag-text">独立教练 · 内容创作者</span></span>
+        <h1 class="hero-title" data-wb="hero-title">
           把<ruby>模糊<rt style="font-size:0.5em;">mó hú</rt></ruby>的想法，
           变成<ruby>清晰<rt style="font-size:0.5em;">qīng xī</rt></ruby>的下一步
         </h1>
-        <p class="hero-subtitle">
+        <p class="hero-subtitle" data-wb="hero-subtitle">
           我是 Monna，一名独立教练。<br/>
           用结构化思维 + 教练对话 + 视觉记录，陪你把"想做但说不清"的事，
           变成可以开始验证的小步骤。
         </p>
         <div class="hero-cta">
           <a href="booking.html" class="btn btn-primary btn-lg">
-            预约一次体验对话
+            <span data-wb="cta-primary">预约一次体验对话</span>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
               <line x1="5" y1="12" x2="19" y2="12"/>
               <polyline points="12 5 19 12 12 19"/>
             </svg>
           </a>
-          <a href="services.html" class="btn btn-outline btn-lg">看看我能做什么</a>
+          <a href="services.html" class="btn btn-outline btn-lg"><span data-wb="cta-secondary">看看我能做什么</span></a>
         </div>
       </div>
       <div class="hero-visual fade-in">
@@ -70,7 +70,7 @@
   <!-- ========== 数据统计 ========== -->
   <section class="stats-band">
     <div class="container">
-      <div class="stats-grid">
+      <div class="stats-grid" data-wb="stats">
         <div class="stat-item">
           <div class="number">1200+</div>
           <div class="label">公众号读者</div>
@@ -103,7 +103,7 @@
         </p>
       </div>
 
-      <div class="services-grid">
+      <div class="services-grid" data-wb="services-home">
         <div class="service-card fade-in">
           <div class="service-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -208,7 +208,7 @@
         <p class="section-subtitle">把自己当实验样本，把过程如实写出来。</p>
       </div>
 
-      <div class="articles-grid">
+      <div class="articles-grid" data-wb="articles-home">
         <a href="article.html?file=post-1.md" class="article-card fade-in">
           <div class="article-cover" style="background: linear-gradient(135deg,#007c40,#00a85a);">
             <div class="article-cover-text">从大厂到<br/>一个人</div>
@@ -276,8 +276,8 @@
   <!-- ========== CTA ========== -->
   <section class="cta-section">
     <div class="container">
-      <h2>想找个不会评判你的人聊聊？</h2>
-      <p>
+      <h2 data-wb="cta-title">想找个不会评判你的人聊聊？</h2>
+      <p data-wb="cta-desc">
         不需要带任何"准备好的答案"。<br/>
         你只要带着当下的卡点来，我们一起把它看清楚。
       </p>
@@ -331,10 +331,16 @@
 
       <div class="footer-bottom">
         © 2026 一人公司 · Made with ❤️ by Monna · All rights reserved.
+        <span style="opacity:.5; margin:0 8px;">·</span>
+        <a href="admin.html" style="opacity:.75;">管理后台</a>
       </div>
     </div>
   </footer>
 
   <script src="main.js"></script>
+  <script src="config.js"></script>
+  <script src="seed.js"></script>
+  <script src="store.js"></script>
+  <script src="site.js"></script>
 </body>
 </html>

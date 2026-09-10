@@ -110,51 +110,16 @@
       </div>
       <div class="footer-bottom">
         © 2026 一人公司 · Made with ❤️ by Monna · All rights reserved.
+        <span style="opacity:.5; margin:0 8px;">·</span>
+        <a href="admin.html" style="opacity:.75;">管理后台</a>
       </div>
     </div>
   </footer>
 
   <script src="main.js"></script>
-  <script>
-    // 解析 URL 参数加载 Markdown
-    (function() {
-      const params = new URLSearchParams(location.search);
-      const file = params.get('file');
-
-      if (!file) {
-        document.getElementById('markdown-container').innerHTML =
-          '<p style="text-align:center;color:#e53e3e;">未指定文章路径。</p>';
-        return;
-      }
-
-      // 简单安全检查（只允许根目录下的 .md）
-      if (!/^[\w\-]+\.md$/.test(file)) {
-        document.getElementById('markdown-container').innerHTML =
-          '<p style="text-align:center;color:#e53e3e;">非法文件路径。</p>';
-        return;
-      }
-
-      WB.loadMarkdown(file, 'markdown-container').then(() => {
-        // 渲染后尝试读取 frontmatter / 元数据（这里简单估算字数）
-        const text = document.getElementById('markdown-container').innerText;
-        const minutes = Math.max(1, Math.round(text.length / 400));
-        document.getElementById('meta-reading').textContent = `${minutes} 分钟`;
-      });
-
-      // 文件名 → 显示日期（前端无 frontmatter 时粗略映射）
-      const dateMap = {
-        'post-1': '2026-08-15',
-        'post-2': '2026-08-02',
-        'post-3': '2026-07-20',
-        'post-4': '2026-07-05',
-        'post-5': '2026-06-18',
-        'post-6': '2026-06-01'
-      };
-      const baseName = (file.match(/post-\d+/) || ['post-x'])[0];
-      if (dateMap[baseName]) {
-        document.getElementById('meta-date').textContent = dateMap[baseName];
-      }
-    })();
-  </script>
+  <script src="config.js"></script>
+  <script src="seed.js"></script>
+  <script src="store.js"></script>
+  <script src="site.js"></script>
 </body>
 </html>
