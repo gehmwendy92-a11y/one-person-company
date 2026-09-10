@@ -38,6 +38,23 @@
     $$(sel).forEach(el => { if (el.tagName === 'IMG') el.src = val; });
   }
 
+  /* ---------- 埋点：访客行为记录（存后台「访问数据统计」模块） ---------- */
+  function pageName() {
+    return (location.pathname.split('/').pop() || 'index.html').replace(/\.html$/i, '');
+  }
+  function track(type, label) {
+    try {
+      if (!window.WBStore) return;
+      window.WBStore.create('events', {
+        type: String(type || 'custom'),
+        page: pageName(),
+        label: String(label || '').slice(0, 120),
+        referrer: String(document.referrer || '').slice(0, 200)
+      }).catch(function () { /* 埋点失败不影响访客浏览 */ });
+    } catch (e) { /* 静默 */ }
+  }
+  window.WBTrack = track;   // 以后想埋新点，任何地方调 WBTrack('事件名','标签') 即可
+
   /* ---------- 全局品牌（所有页面共用） ---------- */
   function renderBrand(d) {
     const p = d.profile || {};
@@ -295,11 +312,14 @@
         wItem.style.display = wechat ? '' : 'none';
         const el = wItem.querySelector('[data-wb="contact-wechat"]');
         if (el && wechat) el.textContent = wechat;
+        wItem.style.cursor = 'pointer';
+        wItem.addEventListener('click', () => track('contact_click', '微信:' + wechat));
       }
       if (eItem) {
         eItem.style.display = email ? '' : 'none';
         const el = eItem.querySelector('[data-wb="contact-email"]');
         if (el && email) { el.textContent = email; el.href = 'mailto:' + email; }
+        eItem.addEventListener('click', () => track('contact_click', '邮箱:' + email));
       }
       box.hidden = false;
     });
@@ -363,6 +383,7 @@
       try {
         await window.WBStore.create('leads', lead);
         window.WBStore.emitChange('leads');
+        track('lead_submit', lead.service || lead.name);
         const success = $('.form-success');
         if (success) {
           success.classList.add('show');
@@ -435,6 +456,14 @@
     try { await window.WBStore.init(); } catch (e) { console.warn(e); }
     bindBooking();
 
+    /* 埋点：每次打开页面都记一条 pageview（失败静默，不影响访客） */
+    track('pageview', '');
+
+    /* 埋点：点任何"去预约"按钮都记一条 */
+    $$('a[href="booking.html"], a[href*="booking.html"]').forEach(a => {
+      a.addEventListener('click', () => track('booking_click', '来自' + pageName() + '页'));
+    });
+
     const page = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
 
     const d = await window.WBStore.loadAll();
@@ -449,6 +478,7 @@
     if (page === 'article.html') {
       try { await renderArticleDetail(d.ok ? d : { articles: [] }); }
       catch (e) { console.warn('[site] 文章渲染出错：', e); }
+      track('article_read', (new URLSearchParams(location.search).get('slug') || new URLSearchParams(location.search).get('file') || '未知文章'));
       return;
     }
 

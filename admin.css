@@ -334,3 +334,64 @@ td.nowrap { white-space: nowrap; }
   .mini-stats { grid-template-columns: repeat(2, 1fr); }
   .card { padding: 18px; }
 }
+
+/* ========== 访问数据统计 ========== */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 18px;
+}
+.stat-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 18px 20px;
+}
+.stat-num {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--brand);
+  line-height: 1.2;
+}
+.stat-label { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+
+.bar-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 7px 0;
+}
+.bar-label {
+  flex: 0 0 110px;
+  font-size: 13px;
+  color: var(--text-body);
+  text-align: right;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.bar-track {
+  flex: 1;
+  height: 12px;
+  background: var(--bg-page);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--brand), #4ea87a);
+  border-radius: 6px;
+  min-width: 4px;
+}
+.bar-num {
+  flex: 0 0 46px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-title);
+}
+
+@media (max-width: 760px) {
+  .stat-grid { grid-template-columns: repeat(2, 1fr); }
+  .bar-label { flex-basis: 84px; }
+}

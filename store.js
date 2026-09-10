@@ -139,6 +139,7 @@
       if (table === 'services') rows.sort((a, b) => (a.sort_order || 0) - (b.sort_order || 0));
       if (table === 'articles') rows.sort((a, b) => (a.sort_order || 0) - (b.sort_order || 0));
       if (table === 'leads')    rows.sort((a, b) => String(b.created_at).localeCompare(String(a.created_at)));
+      if (table === 'events') { rows.sort((a, b) => String(b.created_at).localeCompare(String(a.created_at))); rows = rows.slice(0, 2000); }
       return rows;
     },
     async singleton(table) {
@@ -221,6 +222,7 @@
       if (table === 'services') q = q.order('sort_order', { ascending: true });
       if (table === 'articles') q = q.order('sort_order', { ascending: true });
       if (table === 'leads')    q = q.order('created_at', { ascending: false });
+      if (table === 'events')   q = q.order('created_at', { ascending: false }).limit(2000);
       const { data, error } = await q;
       if (error) throw new Error('读取 ' + table + ' 失败：' + error.message);
       return data || [];

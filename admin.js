@@ -231,7 +231,8 @@
     grid: '<rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>',
     user: '<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>',
     doc:  '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>',
-    inbox:'<polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/>'
+    inbox:'<polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/>',
+    chart:'<path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/>'
   };
   function icon(p) {
     return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' + p + '</svg>';
@@ -242,7 +243,8 @@
     { id: 'services', label: '产品服务管理',      icon: ICONS.grid,  desc: '服务的名称、介绍、价格、包含内容' },
     { id: 'about',    label: '关于我的介绍管理',  icon: ICONS.user,  desc: '个人简介、成长故事、价值观、工具箱' },
     { id: 'articles', label: '我的文章管理',      icon: ICONS.doc,   desc: '文章的增删改查，支持 Markdown 正文' },
-    { id: 'leads',    label: '预约咨询线索管理',  icon: ICONS.inbox, desc: '访客提交的预约信息，标记跟进状态' }
+    { id: 'leads',    label: '预约咨询线索管理',  icon: ICONS.inbox, desc: '访客提交的预约信息，标记跟进状态' },
+    { id: 'stats',    label: '访问数据统计',      icon: ICONS.chart, desc: '页面访问、按钮点击、文章阅读等埋点数据' }
   ];
 
   let current = 'home';
@@ -283,6 +285,7 @@
       if (current === 'about')    await viewAbout();
       if (current === 'articles') await viewArticles();
       if (current === 'leads')    await viewLeads();
+      if (current === 'stats')    await viewStats();
     } catch (e) {
       error(e.message);
     }
@@ -825,6 +828,150 @@
         renderPage();
       });
     });
+  }
+
+  /* ============================================================
+   * 6. 访问数据统计（埋点）
+   * ============================================================ */
+  const PAGE_LABEL = { index: '首页', services: '产品服务', about: '关于我', articles: '文章列表', article: '文章详情', booking: '预约页' };
+  const EVENT_LABEL = {
+    pageview:      '页面访问',
+    article_read:  '文章阅读',
+    lead_submit:   '提交预约',
+    contact_click: '点击联系方式',
+    booking_click: '点击预约按钮'
+  };
+
+  async function viewStats() {
+    setHeader('访问数据统计', '访客的页面访问和关键行为记录（只记行为，不含任何个人信息）',
+      '<button class="btn btn-ghost btn-sm" id="btn-refresh-stats">刷新</button>');
+
+    let events = [];
+    try { events = await Store.list('events'); }
+    catch (e) {
+      $('#content').innerHTML = '<div class="card"><div class="empty"><div class="icon">📊</div>' +
+        '<h3>埋点数据表还没建好</h3>' +
+        '<p>云端模式下需要先在 Supabase 的 SQL Editor 里运行一次 <b>supabase-events.sql</b>（项目文件夹里有这个文件），<br/>' +
+        '运行完点上面的「刷新」就能看到数据了。</p></div></div>';
+      $('#btn-refresh-stats').onclick = renderPage;
+      return;
+    }
+    $('#btn-refresh-stats').onclick = renderPage;
+
+    let leads = [];
+    try { leads = await Store.list('leads'); } catch (e) { /* 忽略 */ }
+
+    if (!events.length) {
+      $('#content').innerHTML = '<div class="card"><div class="empty"><div class="icon">📊</div>' +
+        '<h3>还没有访问数据</h3>' +
+        '<p>访客打开网站后，访问记录会自动出现在这里。<br/>' +
+        '自己打开几个页面再回来刷新，就能看到效果。</p></div></div>';
+      return;
+    }
+
+    /* ---- 统计计算 ---- */
+    const todayStr = new Date().toDateString();
+    const isToday  = (t) => { try { return new Date(t).toDateString() === todayStr; } catch (e) { return false; } };
+
+    const pageviews = events.filter(e => e.type === 'pageview');
+    const pvToday  = pageviews.filter(e => isToday(e.created_at)).length;
+    const leadsToday = leads.filter(l => isToday(l.created_at)).length;
+
+    /* 按页面分布 */
+    const byPage = {};
+    pageviews.forEach(e => { byPage[e.page || '未知'] = (byPage[e.page || '未知'] || 0) + 1; });
+    const pageRows = Object.keys(byPage).sort((a, b) => byPage[b] - byPage[a]);
+
+    /* 按事件类型分布 */
+    const byEvent = {};
+    events.filter(e => e.type !== 'pageview').forEach(e => {
+      byEvent[e.type] = (byEvent[e.type] || 0) + 1;
+    });
+    const eventRows = Object.keys(byEvent).sort((a, b) => byEvent[b] - byEvent[a]);
+
+    /* 最受欢迎的文章 */
+    const byArticle = {};
+    events.filter(e => e.type === 'article_read').forEach(e => {
+      const k = e.label || '未知文章';
+      byArticle[k] = (byArticle[k] || 0) + 1;
+    });
+    const articleRows = Object.keys(byArticle).sort((a, b) => byArticle[b] - byArticle[a]).slice(0, 5);
+
+    /* 访客来源（referrer 域名） */
+    const byRef = {};
+    pageviews.forEach(e => {
+      let host = '直接访问';
+      try { if (e.referrer) host = new URL(e.referrer).hostname; } catch (err) {}
+      byRef[host] = (byRef[host] || 0) + 1;
+    });
+    const refRows = Object.keys(byRef).sort((a, b) => byRef[b] - byRef[a]).slice(0, 5);
+
+    const maxPage = Math.max(1, ...pageRows.map(k => byPage[k]));
+    const maxEvt  = Math.max(1, ...eventRows.map(k => byEvent[k]));
+    const maxRef  = Math.max(1, ...refRows.map(k => byRef[k]));
+
+    function bar(labelTxt, count, max, extra) {
+      const pct = Math.round(count / max * 100);
+      return '<div class="bar-row">' +
+        '<span class="bar-label">' + esc(labelTxt) + '</span>' +
+        '<div class="bar-track"><div class="bar-fill" style="width:' + pct + '%;"></div></div>' +
+        '<span class="bar-num">' + count + (extra || '') + '</span>' +
+      '</div>';
+    }
+
+    /* 最近 30 条 */
+    const recent = events.slice(0, 30).map(e => {
+      let time = '';
+      try { time = new Date(e.created_at).toLocaleString('zh-CN', { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }); } catch (err) {}
+      return '<tr>' +
+        '<td class="nowrap">' + esc(time) + '</td>' +
+        '<td class="nowrap"><span class="chip chip-info">' + esc(EVENT_LABEL[e.type] || e.type) + '</span></td>' +
+        '<td class="nowrap">' + esc(PAGE_LABEL[e.page] || e.page || '—') + '</td>' +
+        '<td style="max-width:220px;">' + esc(e.label || '—') + '</td>' +
+      '</tr>';
+    }).join('');
+
+    $('#content').innerHTML =
+      '<div class="stat-grid">' +
+        '<div class="stat-card"><div class="stat-num">' + pvToday + '</div><div class="stat-label">今日访问</div></div>' +
+        '<div class="stat-card"><div class="stat-num">' + pageviews.length + '</div><div class="stat-label">累计访问</div></div>' +
+        '<div class="stat-card"><div class="stat-num">' + leadsToday + '</div><div class="stat-label">今日新线索</div></div>' +
+        '<div class="stat-card"><div class="stat-num">' + leads.length + '</div><div class="stat-label">累计线索</div></div>' +
+      '</div>' +
+
+      '<div class="card">' +
+        '<div class="card-title">哪些页面被看过</div>' +
+        (pageRows.length
+          ? pageRows.map(k => bar(PAGE_LABEL[k] || k, byPage[k], maxPage)).join('')
+          : '<p class="card-desc">暂无数据</p>') +
+      '</div>' +
+
+      '<div class="card">' +
+        '<div class="card-title">访客做了什么（关键行为）</div>' +
+        (eventRows.length
+          ? eventRows.map(k => bar(EVENT_LABEL[k] || k, byEvent[k], maxEvt)).join('')
+          : '<p class="card-desc">暂无点击、提交等行为记录</p>') +
+      '</div>' +
+
+      '<div class="card">' +
+        '<div class="card-title">最受欢迎的文章 TOP5</div>' +
+        (articleRows.length
+          ? articleRows.map(k => bar(k, byArticle[k], Math.max(1, ...articleRows.map(x => byArticle[x])))).join('')
+          : '<p class="card-desc">还没有文章被阅读过</p>') +
+      '</div>' +
+
+      '<div class="card">' +
+        '<div class="card-title">访客从哪来</div>' +
+        refRows.map(k => bar(k, byRef[k], maxRef)).join('') +
+      '</div>' +
+
+      '<div class="card">' +
+        '<div class="card-title">最近 30 条记录</div>' +
+        '<div class="table-wrap"><table>' +
+          '<thead><tr><th>时间</th><th>行为</th><th>页面</th><th>对象</th></tr></thead>' +
+          '<tbody>' + recent + '</tbody>' +
+        '</table></div>' +
+      '</div>';
   }
 
   function exportLeads(list) {
