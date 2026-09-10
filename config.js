@@ -20,10 +20,10 @@
 window.WB_CONFIG = {
 
   /* ① Supabase 项目地址，形如：https://abcdefghijk.supabase.co */
-  supabaseUrl: '',
+  supabaseUrl: 'https://iavcoavzcinycbggsykq.supabase.co',
 
   /* ② Supabase anon public 密钥，形如：eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.... */
-  supabaseAnonKey: '',
+  supabaseAnonKey: 'sb_publishable_bHliCJkA__WP-2GC5iwzyw_v1SKudHJ',
 
   /* ------------------------------------------------------------
    * 本地模式下的后台账号（只在上面两行留空时生效）
