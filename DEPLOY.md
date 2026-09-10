@@ -84,9 +84,9 @@
 D:\数字大脑\04_Output\Workbuddy输出\2026-09-10-09-42-16\my-one-person-company\
 ```
 
-需要上传的**所有文件和子文件夹**（**包括** articles/、css/、js/ 三个子目录）：
+需要上传的**所有文件**（全部平铺在同一层，**没有子文件夹**）：
 
-| 文件 / 文件夹 | 说明 |
+| 文件 | 说明 |
 |------|------|
 | `index.html` | 首页 |
 | `services.html` | 产品服务 |
@@ -94,19 +94,21 @@ D:\数字大脑\04_Output\Workbuddy输出\2026-09-10-09-42-16\my-one-person-comp
 | `articles.html` | 文章列表 |
 | `article.html` | 文章详情 |
 | `booking.html` | 预约 |
-| `css/` 文件夹 | 样式 |
-| `js/` 文件夹 | 交互 |
-| `articles/` 文件夹 | 6 篇 Markdown 文章 |
+| `style.css` | 样式（全站视觉） |
+| `main.js` | 交互（导航 / 表单 / Markdown 渲染） |
+| `post-1.md` ~ `post-6.md` | 6 篇 Markdown 文章 |
 
 **操作方法**：
 
 1. 打开这个文件夹（用文件资源管理器）
-2. **进入文件夹内部**（双击进入 `my-one-person-company`），看到 `index.html`、`css/` 等
-3. **全选**里面的**所有**文件和文件夹（Ctrl + A）
+2. **进入文件夹内部**（双击进入 `my-one-person-company`）
+3. **全选**里面的**所有**文件（Ctrl + A）
 4. **拖到** GitHub 上传区
 
-> ⚠️ **注意**：要拖的是 `my-one-person-company` 里面的内容，**不是** `my-one-person-company` 这个文件夹本身。  
-> 也就是说，拖完之后 GitHub 列表里应该直接看到 `index.html`、`css`、`js`、`articles` —— 不是看到一个 `my-one-person-company` 文件夹。
+> ⚠️ **重要**：要拖的是 `my-one-person-company` 里面的内容，**不是** `my-one-person-company` 这个文件夹本身。  
+> 拖完之后 GitHub 列表里应该直接看到 `index.html`、`style.css`、`main.js`、`post-1.md` 等文件。
+>
+> 💡 **为什么是"扁平"结构？** GitHub 网页上传时会把子文件夹"压平"（`css/style.css` 会被放到根目录变成 `style.css`）。我们把所有文件平铺在同一层，路径就不会对不上，页面样式和文章才能正常显示。
 
 #### 3.3 提交上传
 
@@ -115,7 +117,7 @@ D:\数字大脑\04_Output\Workbuddy输出\2026-09-10-09-42-16\my-one-person-comp
 - 点绿色按钮 **"Commit changes"**
 - 等 5-10 秒，文件全部出现在 GitHub 页面
 
-> ✅ 验证：现在打开 https://github.com/你的用户名/one-person-company，应该能看到 `index.html`、`css/`、`js/`、`articles/` 都在。
+> ✅ 验证：现在打开 https://github.com/你的用户名/one-person-company，应该能看到 `index.html`、`style.css`、`main.js`、`post-1.md` 等文件都在。
 
 ---
 
@@ -168,7 +170,7 @@ https://one-person-company-你的用户名.vercel.app
 具体操作：
 
 1. 打开你的 GitHub 仓库：https://github.com/你的用户名/one-person-company
-2. 点你要改的文件（比如 `articles/post-1.md`）
+2. 点你要改的文件（比如 `post-1.md`）
 3. 右上角铅笔 ✏️ 图标 → 编辑
 4. 改完之后滚到下面，填一句备注 → 点 **"Commit changes"**
 5. 等 1-2 分钟，Vercel 自动部署完成
@@ -183,8 +185,8 @@ https://one-person-company-你的用户名.vercel.app
 | 想做什么 | 在哪里操作 |
 |---------|-----------|
 | 改成自己的域名（如 `monna.com`） | Vercel → Project → Settings → Domains |
-| 修改网站配色 / 文字 | GitHub → 编辑 `css/style.css` 或 `index.html` |
-| 加一篇新文章 | GitHub → `articles/` 文件夹 → Add file |
+| 修改网站配色 / 文字 | GitHub → 编辑 `style.css` 或 `index.html` |
+| 加一篇新文章 | GitHub → Add file → 新建 `post-7.md`（复制 `post-1.md` 改内容即可） |
 | 看访问量 | Vercel → Project → Analytics（需升级计划） |
 | 改网站名字 | Vercel → Project → Settings → Project Name |
 

@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>文章详情 · 一人公司</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
@@ -114,7 +114,7 @@
     </div>
   </footer>
 
-  <script src="js/main.js"></script>
+  <script src="main.js"></script>
   <script>
     // 解析 URL 参数加载 Markdown
     (function() {
@@ -127,8 +127,8 @@
         return;
       }
 
-      // 简单安全检查（只允许 articles/ 下的 .md）
-      if (!/^articles\/[\w\-]+\.md$/.test(file)) {
+      // 简单安全检查（只允许根目录下的 .md）
+      if (!/^[\w\-]+\.md$/.test(file)) {
         document.getElementById('markdown-container').innerHTML =
           '<p style="text-align:center;color:#e53e3e;">非法文件路径。</p>';
         return;
